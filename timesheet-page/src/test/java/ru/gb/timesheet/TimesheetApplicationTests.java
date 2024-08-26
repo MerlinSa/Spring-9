@@ -1,13 +1,13 @@
 package ru.gb.timesheet;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TimesheetApplication8Tests {
+public class TimesheetApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
 	}
 
 }

@@ -62,4 +62,15 @@ public class TimesheetService {
 
         return timesheetRepository.findByEmployeeId(id);
     }
+    public Optional<Timesheet> update(Long id, Timesheet timesheet) {
+        Optional<Timesheet> needUpdate = findById(id);
+
+        if (needUpdate.isPresent()) {
+            timesheet.setId(needUpdate.get().getId());
+            timesheetRepository.save(timesheet);
+            return Optional.of(timesheet);
+        }
+
+        return Optional.empty();
+    }
 }

@@ -2,8 +2,7 @@ package ru.gb.timesheet.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -13,6 +12,9 @@ import java.time.LocalDate;
  */
 @Data
 @Entity
+@RequiredArgsConstructor
+@Setter
+@Getter
 @Table(name = "timesheet")
 @Schema(description = "Данные учета рабочего времени")
 public class Timesheet {

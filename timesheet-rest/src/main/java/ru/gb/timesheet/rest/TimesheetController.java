@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import ru.gb.timesheet.model.Timesheet;
 import ru.gb.timesheet.service.TimesheetService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -78,6 +80,18 @@ public class TimesheetController {
     // 204 No Content
     return ResponseEntity.noContent().build();
   }
+
+  @Response.OkResponse
+  @Response.NotFoundResponse
+  @Response.ServerErrorResponse
+  @PutMapping(path = "/{id}")
+  public ResponseEntity<Timesheet> update(@PathVariable Long id, @RequestBody Timesheet timesheet) {
+    Optional<Timesheet> update = service.update(id, timesheet);
+
+    return update.map(value -> ResponseEntity.ok(update.get()))
+            .orElseThrow(() -> new ResourceNotFoundException("There is no timesheet with id #" + id));
+  }
+
 
 //  @ExceptionHandler(NoSuchElementException.class)
 //  public ResponseEntity<?> handleNoSuchElementException(NoSuchElementException e) {

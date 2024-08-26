@@ -47,6 +47,7 @@ public class Response {
 
     }
 
+
     @Retention(RetentionPolicy.RUNTIME)
     @ApiResponse(description = "Успешный ответ", responseCode = "200", content = @Content(schema = @Schema(implementation = Timesheet.class)))
     @interface AccessTimesheetRequest {
@@ -63,5 +64,25 @@ public class Response {
     @ApiResponse(description = "Контент отсутствует", responseCode = "204", content = @Content(schema = @Schema(implementation = Void.class)))
     @interface NoContentRequest {
 
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @ApiResponse(
+            description = "Внутренняя ошибка",
+            responseCode = "500",
+            content = @Content(
+                    schema = @Schema(implementation = Void.class)
+            )
+    )
+    public @interface ServerErrorResponse {}
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @ApiResponse(
+            description = "Успешный ответ",
+            responseCode = "200"
+    )
+    // open api сам определяет возвращаемый тип (объявленный в сигнатуре метода)
+    // schema = @Schema(implementation = "Some".class)
+    public @interface OkResponse {
     }
 }
